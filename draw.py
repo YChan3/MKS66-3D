@@ -61,21 +61,39 @@ def add_sphere( points, cx, cy, cz, r, step ):
   # radii r0 and r1.
   # Returns a matrix of those points
   # ====================
+# def generate_torus( points, cx, cy, cz, r0, r1, step ):
+#     a = 0
+#     matrix = []
+#     while a <= 1:
+#         t = 0
+#         x0 = r0 + cx
+#         y0 = cy
+#         z0 = cz
+#         while t <= 1:
+#             x0 = math.cos(2*math.pi*a)*(r0*math.cos(2*math.pi*t)+r1)+cx
+#             y0 = r0*math.sin(2*math.pi*t)+cy
+#             z0 = 0-math.sin(2*math.pi*a)*(r0*math.cos(2*math.pi*t)+r1)+cz
+#             matrix.append([x0,y0,z0,0])
+#             t = t + step
+#         a = a + step
+#     return matrix
+
 def generate_torus( points, cx, cy, cz, r0, r1, step ):
-    a = step
     matrix = []
-    while a <= 1+step:
-        t = step
-        x0 = r0 + cx
-        y0 = cy
-        z0 = cz
-        while t <= 1+step:
-            x0 = r0*math.cos(2*math.pi*t)*math.cos(2*math.pi*a)+r1*math.cos(2*math.pi*a)+cx
-            y0 = r0*math.sin(2*math.pi*t)+cy
-            z0 = r0*math.sin(2*math.pi*t)*math.sin(2*math.pi*a)-r1*math.sin(2*math.pi*a)+cz
-            matrix.append([x0,y0,z0])
-            t = t + step
-        a = a + step
+    phi = 0
+    while phi<=1:
+        theta = 0
+        x = r0 + cx
+        y = cy
+        z = cz
+        while theta<=1:
+            #print("theta: " + str(theta) + ", phi: " + str(phi))
+            x = math.cos(2 * math.pi * phi)*(r0*math.cos(2 * math.pi * theta)+r1) + cx
+            y = r0*math.sin(2 * math.pi * theta) + cy
+            z = 0-math.sin(2 * math.pi * phi)*(r0*math.cos(2 * math.pi * theta)+r1) + cz
+            matrix.append([x,y,z,0])
+            theta+=step
+        phi+=step
     return matrix
 
   # ====================
